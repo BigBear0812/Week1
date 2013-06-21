@@ -3,5 +3,36 @@ extends layout
 block content
 	div.Header
 		div.Title
-			h1 This is the main header for the page
+			h1 Calander
+		div.Controls
+			select(name='month')
+				option(value='Jan') January
+				option(value='Feb') February
+				option(value='Mar') March
+				option(value='Apr') April
+				option(value='May') May
+				option(value='Jun') June
+				option(value='Jul') July
+				option(value='Aug') August
+				option(value='Sep') September
+				option(value='Oct') October
+				option(value='Nov') November
+				option(value='Dec') December
+		div.clearfix
 	div.Calendar
+		div.CalendarHeader
+			div.CalendarHeaderDay
+				text Sunday
+			div.CalendarHeaderDay
+				text Monday
+			div.CalendarHeaderDay
+				text Tuesday
+			div.CalendarHeaderDay
+				text Wednesday
+			div.CalendarHeaderDay
+				text Thursday
+			div.CalendarHeaderDay
+				text Friday
+			div.CalendarHeaderDay
+				text Saturday
+			div.clearfix
