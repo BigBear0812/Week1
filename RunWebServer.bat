@@ -1,1 +1,1 @@
-node server
+node app

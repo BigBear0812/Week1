@@ -1,0 +1,12 @@
+body{width: 1170px; margin: 0 auto; background-color: #ffffff;}
+h1{padding: 0; margin: 0;}
+h2{padding: 0; margin: 0;}
+h3{padding: 0; margin: 0;}
+h4{padding: 0; margin: 0;}
+h5{padding: 0; margin: 0;}
+h6{padding: 0; margin: 0;}
+p{padding: 0; margin: 0;}
+div{padding: 0; margin: 0;}
+.clearfix{clear:both;}
+.Header {width: 1170px; height: 200px; background-color: #666666; border-radius: 10px;}
+.Header .Title {padding-top: 75px; width: 600px;float: left;}
