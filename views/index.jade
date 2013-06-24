@@ -3,7 +3,7 @@ extends layout
 block content
 	div.Header
 		div.Title
-			h1 Calander
+			h1 Calander 2013
 		div.Controls
 			select(name='month')
 				option(value='Jan') January
@@ -11,7 +11,7 @@ block content
 				option(value='Mar') March
 				option(value='Apr') April
 				option(value='May') May
-				option(value='Jun') June
+				option(value='Jun', selected='selected') June
 				option(value='Jul') July
 				option(value='Aug') August
 				option(value='Sep') September
@@ -36,3 +36,4 @@ block content
 			div.CalendarHeaderDay
 				text Saturday
 			div.clearfix
+		div.CalendarBody
