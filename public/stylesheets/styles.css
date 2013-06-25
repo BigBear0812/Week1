@@ -23,5 +23,5 @@ select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;}
 .CalendarHeaderDay text{font-size: 20px;}
 .CalendarBodyDay{float: left; width:164px; height: 164px; border-left: 1px solid #0772a1; border-right: 1px solid #0772a1; border-top: 2px solid #0772a1;}
 .CalendarBodyDay-Date{font-size: 25px;}
-.CalendarBodyDay-Events{font-size: 16px; overflow:none;}
-.CalendarBodyDay-Event{overflow:hidden; background: #6ee768; height: 60px;}
+.CalendarBodyDay-Events{font-size: 16px; overflow-y:auto; height: 135px;}
+.CalendarBodyDay-Event{overflow:hidden; background: #6ee768; height: 38px; margin-top: 5px; border-radius: 2px; border: 1px solid #078600;}
