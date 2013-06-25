@@ -11,17 +11,23 @@ p{padding: 0; margin: 0;}
 div{padding: 0; margin: 0;}
 select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;}
 .clearfix{clear:both;}
-.Header {width: 1170px; background-color: #0772a1; border-radius: 10px;}
+.Header {width: 1170px; background-color: #2D9B27; border-radius: 10px;}
 .ie .Header{width: 1167.2px;}
 .ie.ie7 .Header{width: 1167px;}
 .Header .Title {margin:70px 275px; width: 325px;float: left; height: 60px;}
 .Header .Title h1 {font-size: 50px;}
 .Header .Controls{margin:70px 0; width: 270px; float: left; height: 60px;}
-.Calendar{border-style:solid; border-color: #0772a1;  border-width: 5px 4px; border-radius:10px;}
+.Calendar{border-style:solid; border-color: #078600;  border-width: 5px 4px; border-radius:10px;}
 .CalendarHeader{}
-.CalendarHeaderDay{float: left; width:164px; border-left: 1px solid #0772a1; border-right: 1px solid #0772a1; text-align: center;}
+.CalendarHeaderDay{float: left; width:164px; border-left: 1px solid #078600; border-right: 1px solid #078600; text-align: center; background-color: #6ee768;}
 .CalendarHeaderDay text{font-size: 20px;}
-.CalendarBodyDay{float: left; width:164px; height: 164px; border-left: 1px solid #0772a1; border-right: 1px solid #0772a1; border-top: 2px solid #0772a1;}
+.CalendarBodyDay{float: left; width:164px; height: 164px; border-left: 1px solid #078600; border-right: 1px solid #078600; border-top: 2px solid #078600; background-color: #ffffff;}
 .CalendarBodyDay-Date{font-size: 25px;}
 .CalendarBodyDay-Events{font-size: 16px; overflow-y:auto; height: 135px;}
-.CalendarBodyDay-Event{overflow:hidden; background: #6ee768; height: 38px; margin-top: 5px; border-radius: 2px; border: 1px solid #078600;}
+.CalendarBodyDay-Event{overflow:hidden; background-color: #FFA540; height: 38px; margin-top: 5px; border-radius: 2px; border: 1px solid #FF8700; cursor: pointer}
+.Today{background-color: #eeeeee;}
+.back{display: none;}
+.Card{width:300px !important; background-color: #BE2F33; border-radius: 4px; border:1px solid #A40004;}
+.ie7 input.close, .ie8 input.close, .ie9 input.close{display: none;}
+.ui-dialog{width: 300px; background-color: #BE2F33; border-radius: 4px; border:1px solid #A40004;}
+.ui-dialog-titlebar{display: none;}
