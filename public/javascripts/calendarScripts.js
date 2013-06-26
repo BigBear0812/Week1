@@ -86,8 +86,9 @@ function makeCalendar(events, calendarBody, monthSelector, today){
 	$(calendarBody).empty();
 	$(calendarBody).html(html);
 	
-	// attach event handler
+	// attach event handler to show details
 	$('.CalendarBodyDay-Event').click(function(){
+		// if old IE use jQuery dialog to display details
 		if($('html').hasClass('ie9') || $('html').hasClass('ie8') || $('html').hasClass('ie7'))
 		{
 			$(this).find('.back').dialog({
@@ -100,6 +101,7 @@ function makeCalendar(events, calendarBody, monthSelector, today){
 				}
 			});
 		}
+		// if real modern browser use flippant.js since it's awesome0 
 		else{
 			var back = flippant.flip(this, $(this).find('.back').html(), 'card', 'Card');
 			(function(b){

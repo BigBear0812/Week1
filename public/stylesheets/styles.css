@@ -1,6 +1,6 @@
 body{width: 1170px; margin: 0 auto; background-color: #ffffff;}
-.ie body{width: 1167.2px;}
-.ie.ie7 body{width: 1167px;}
+/*.ie body{width: 1167.2px;}
+.ie.ie7 body{width: 1167px;}*/
 h1{padding: 0; margin: 0;}
 h2{padding: 0; margin: 0;}
 h3{padding: 0; margin: 0;}
@@ -12,8 +12,8 @@ div{padding: 0; margin: 0;}
 select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;}
 .clearfix{clear:both;}
 .Header {width: 1170px; background-color: #2D9B27; border-radius: 10px;}
-.ie .Header{width: 1167.2px;}
-.ie.ie7 .Header{width: 1167px;}
+/*.ie .Header{width: 1167.2px;}
+.ie.ie7 .Header{width: 1167px;}*/
 .Header .Title {margin:70px 275px; width: 325px;float: left; height: 60px;}
 .Header .Title h1 {font-size: 50px;}
 .Header .Controls{margin:70px 0; width: 270px; float: left; height: 60px;}
