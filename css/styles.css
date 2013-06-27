@@ -1,0 +1,46 @@
+/* body{width: 1170px; margin: 0 auto; background-color: #ffffff;}
+/*.ie body{width: 1167.2px;}
+.ie.ie7 body{width: 1167px;}
+h1{padding: 0; margin: 0;}
+h2{padding: 0; margin: 0;}
+h3{padding: 0; margin: 0;}
+h4{padding: 0; margin: 0;}
+h5{padding: 0; margin: 0;}
+h6{padding: 0; margin: 0;}
+p{padding: 0; margin: 0;}
+div{padding: 0; margin: 0;}
+select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;} */
+/* .clearfix{clear:both;} */
+.hero-unit{background-color: #2D9B27;}
+.hero-unit h1{width: 400px; margin: 10px auto 0 auto;}
+.hero-unit form{width: 400px; margin: 0 auto 10px auto;}
+/*.ie .Header{width: 1167.2px;}
+.ie.ie7 .Header{width: 1167px;}*/
+/* .Header .Title {margin:70px 275px; width: 325px;float: left; height: 60px;}
+.Header .Title h1 {font-size: 50px;}
+.Header .Controls{margin:70px 0; width: 270px; float: left; height: 60px;} */
+/* .Calendar{border-style:solid; border-color: #078600;  border-width: 5px 4px; border-radius:10px;}
+.CalendarHeader{} */
+.Calendar{ display:table;}
+.CalendarHeader{display: table-header-group;} 
+.CalendarHeaderDay{display: table-cell; width: 168px; border-left: 1px solid #078600; border-right: 1px solid #078600; border-top: 5px solid #078600; text-align: center; background-color: #6ee768;}
+.CalendarHeaderDay text{font-size: 20px;}
+.CalendarHeaderDay.First{border-left:6px solid #078600; border-top-left-radius: 6px; width: 162px;}
+.CalendarHeaderDay.Last{border-right:6px solid #078600; border-top-right-radius: 6px; width: 162px;}
+.CalendarBodyRow{display: table-row;}
+.CalendarBodyDay{display: table-cell;  height: 21px; width: 168px; border-left: 1px solid #078600; border-right: 1px solid #078600; border-top: 2px solid #078600; background-color: #ffffff;}
+.CalendarBodyDay.First{border-left:6px solid #078600; width: 162px;}
+.CalendarBodyDay.Last{border-right:6px solid #078600;width: 162px;}
+.CalendarBodyDay-Date{font-size: 25px;}
+.CalendarBodyDay-Events{font-size: 16px; overflow-y:auto; height: 135px;}
+.CalendarBodyDay-Event{overflow:hidden; background-color: #FFA540; height: 38px; margin-top: 5px; border-radius: 2px; border: 1px solid #FF8700; cursor: pointer}
+.CalendarFooter{display: table-footer-group;}
+.CalendarFooterCol{display: table-cell; width: 168px; border-bottom: 6px solid #078600;}
+.CalendarFooterCol.First{border-bottom-left-radius: 6px;}
+.CalendarFooterCol.Last{border-bottom-right-radius: 6px;}
+.Today{background-color: #eeeeee;}
+.back{display: none;}
+.Card{width:300px !important; background-color: #BE2F33; border-radius: 4px; border:1px solid #A40004;}
+.ie7 input.close, .ie8 input.close, .ie9 input.close{display: none;}
+.ui-dialog{width: 300px; background-color: #BE2F33; border-radius: 4px; border:1px solid #A40004;}
+.ui-dialog-titlebar{display: none;}

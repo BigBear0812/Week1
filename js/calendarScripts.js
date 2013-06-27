@@ -11,20 +11,23 @@ $(document).ready(function(){
 	$(monthSelector).val(now.month());
 	
 	// find where the calendar goes on the page and setup for the first time
-	var calendarBody = $('.CalendarBody');
-	makeCalendar(events, calendarBody, monthSelector, now);
+	var calendarBody = '.Calendar';
+	var originalHTML = $(calendarBody).parent().html();
+	makeCalendar(events, calendarBody, monthSelector, now, originalHTML);
 	
 	// attach event listener for when the user changes the month
 	$('select[name="month"]').change(function(){
-		makeCalendar(events, calendarBody, monthSelector, now);
+		makeCalendar(events, calendarBody, monthSelector, now, originalHTML);
 	});
 });
 
-function makeCalendar(events, calendarBody, monthSelector, today){
+function makeCalendar(events, calendarBody, monthSelector, today, originalHTML){
 	var year = 2013;
 	var monthTxt = $(monthSelector).val();
 	var month = parseInt(monthTxt);//months.indexOf(monthTxt);	
 	var numDays = daysInMonth((month+1), year);
+	
+	var rowIndex = 0;
 	
 	var html = "";
 	
@@ -33,7 +36,18 @@ function makeCalendar(events, calendarBody, monthSelector, today){
 		if (v == 0){
 			var day = dayOfWeek(month, year, (v+1));
 			for(var i = 0; i < day; i++){
-				html = html + '<div class="CalendarBodyDay"></div>'
+				if (rowIndex == 0) {
+					html = html + '<div class="CalendarBodyRow"><div class="CalendarBodyDay First"></div>';
+					rowIndex++;
+				}
+				else if (rowIndex == 6){
+					html = html + '<div class="CalendarBodyDay Last"></div></div>';
+					rowIndex = 0;
+				}
+				else{
+					html = html + '<div class="CalendarBodyDay"></div>';
+					rowIndex++;
+				}
 			}
 		}
 		
@@ -49,42 +63,77 @@ function makeCalendar(events, calendarBody, monthSelector, today){
 		
 		// begin constructing todays date code
 		if (today.date() == (v+1) && today.month() == (month)){
-			html = html + '<div class="CalendarBodyDay Today"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+			if (rowIndex == 0) {
+				html = html + '<div class="CalendarBodyRow"><div class="CalendarBodyDay Today First"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+				html = addEvents(todaysEvents, html)
+				html = html + '</div></div>'
+				rowIndex++;
+			}
+			else if (rowIndex == 6){
+				html = html + '<div class="CalendarBodyDay Today Last"><div class="CalendarBodyDay-Date"></div>' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+				html = addEvents(todaysEvents, html)
+				html = html + '</div></div></div>'
+				rowIndex = 0;
+			}
+			else{
+				html = html + '<div class="CalendarBodyDay Today"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+				html = addEvents(todaysEvents, html)
+				html = html + '</div></div>'
+				rowIndex++;
+			}
+			//html = html + '<div class="CalendarBodyDay Today"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
 		}
 		else{
-			html = html + '<div class="CalendarBodyDay"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+			if (rowIndex == 0) {
+				html = html + '<div class="CalendarBodyRow"><div class="CalendarBodyDay First"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+				html = addEvents(todaysEvents, html)
+				html = html + '</div></div>'
+				rowIndex++;
+			}
+			else if (rowIndex == 6){
+				html = html + '<div class="CalendarBodyDay Last"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+				html = addEvents(todaysEvents, html)
+				html = html + '</div></div></div>'
+				rowIndex = 0;
+			}
+			else{
+				html = html + '<div class="CalendarBodyDay"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
+				html = addEvents(todaysEvents, html)
+				html = html + '</div></div>'
+				rowIndex++;
+			}
+			//html = html + '<div class="CalendarBodyDay"><div class="CalendarBodyDay-Date">' + (v+1) + '</div><div class="CalendarBodyDay-Events">';
 		}
-		
-		
-		// for each event add in a new event for it
-		for(var i = 0; i < todaysEvents.length; i++){
-			var curDate = moment(todaysEvents[i].Date);
-			html = html + '<div class="CalendarBodyDay-Event">' + todaysEvents[i].Title + 
-				'<div class="back">Title: ' + todaysEvents[i].Title + 
-				'<br />Time: ' +  curDate.hour() + ":" + curDate.minute() +
-				'<br />Host: ' + todaysEvents[i].Host + 
-				'<br />Location: ' + todaysEvents[i].Location + 
-				'<br />Description: ' + todaysEvents[i].Description + 
-				'<br /><input type="button" class="close" value="Close" />' +
-				'</div></div>';
-		}
-		html = html + '</div></div>'
 		
 		// if this is the last day for the month calculate the padding at the end of the month.
 		if (v == (numDays - 1)){
 			var day = dayOfWeek(month, year, (v+1));
 			var num = 6 - day;
 			for(var i = 0; i < num; i++){
-				html = html + '<div class="CalendarBodyDay"></div>'
+				if (rowIndex == 0) {
+					html = html + '<div class="CalendarBodyRow"><div class="CalendarBodyDay First"></div>';
+					rowIndex++;
+				}
+				else if (rowIndex == 6){
+					html = html + '<div class="CalendarBodyDay Last"></div></div>';
+					rowIndex = 0;
+				}
+				else{
+					html = html + '<div class="CalendarBodyDay"></div>';
+					rowIndex++;
+				}
 			}
 		}
 	}
 	// since we are using floating we need a clearfix div at the end
-	html = html + '<div class="clearfix"></div>';
 	
 	// empty any old dates that were there and add in the new html we just generated.
-	$(calendarBody).empty();
-	$(calendarBody).html(html);
+	if($('html').hasClass('ie7')){ $('.Calendar').css('behavior', "");}
+	var parent = $(calendarBody).parent('div');
+	$(parent).empty();
+	$(parent).html(originalHTML);
+	$('.CalendarHeader').after(html);
+	if($('html').hasClass('ie7')){ $('.Calendar').css('behavior', "url('http://localhost:8080/htc/display-table.min.htc')");}
 	
 	// attach event handler to show details
 	$('.CalendarBodyDay-Event').click(function(){
@@ -112,6 +161,23 @@ function makeCalendar(events, calendarBody, monthSelector, today){
 		}
 	});
 }
+
+function addEvents(todaysEvents, html){
+	// for each event add in a new event for it
+	for(var i = 0; i < todaysEvents.length; i++){
+		var curDate = moment(todaysEvents[i].Date);
+		html = html + '<div class="CalendarBodyDay-Event">' + todaysEvents[i].Title + 
+			'<div class="back">Title: ' + todaysEvents[i].Title + 
+			'<br />Time: ' +  curDate.hour() + ":" + curDate.minute() +
+			'<br />Host: ' + todaysEvents[i].Host + 
+			'<br />Location: ' + todaysEvents[i].Location + 
+			'<br />Description: ' + todaysEvents[i].Description + 
+			'<br /><input type="button" class="close" value="Close" />' +
+			'</div></div>';
+	}
+	return html;
+}
+
 
 // this returns the number of days in a month
 function daysInMonth(month, year){
