@@ -138,10 +138,11 @@ function makeCalendar(events, calendarBody, monthSelector, today, originalHTML){
 	// attach event handler to show details
 	$('.CalendarBodyDay-Event').click(function(){
 		// if old IE use jQuery dialog to display details
-		if($('html').hasClass('ie9') || $('html').hasClass('ie8') || $('html').hasClass('ie7'))
-		{
+		// if($('html').hasClass('ie9') || $('html').hasClass('ie8') || $('html').hasClass('ie7'))
+		// {
 			$(this).find('.back').dialog({
-				width: 300,
+				width: 600,
+				title: "Event Details",
 				modal: true,
 				buttons: {
 					Close: function() {
@@ -149,16 +150,17 @@ function makeCalendar(events, calendarBody, monthSelector, today, originalHTML){
 					}
 				}
 			});
-		}
-		// if real modern browser use flippant.js since it's awesome0 
-		else{
-			var back = flippant.flip(this, $(this).find('.back').html(), 'card', 'Card');
-			(function(b){
-				$(b).find('input.close').on('click', function(e) {
-					b.close()
-				})
-			})(back);
-		}
+			$('.ui-dialog-buttonset').children().addClass('btn');
+		// }
+		// // if real modern browser use flippant.js since it's awesome0 
+		// else{
+			// var back = flippant.flip(this, $(this).find('.back').html(), 'card', 'Card');
+			// (function(b){
+				// $(b).find('input.closeButton').on('click', function(e) {
+					// b.close()
+				// })
+			// })(back);
+		// }
 	});
 }
 
@@ -167,12 +169,12 @@ function addEvents(todaysEvents, html){
 	for(var i = 0; i < todaysEvents.length; i++){
 		var curDate = moment(todaysEvents[i].Date);
 		html = html + '<div class="CalendarBodyDay-Event">' + todaysEvents[i].Title + 
-			'<div class="back">Title: ' + todaysEvents[i].Title + 
-			'<br />Time: ' +  curDate.hour() + ":" + curDate.minute() +
-			'<br />Host: ' + todaysEvents[i].Host + 
-			'<br />Location: ' + todaysEvents[i].Location + 
-			'<br />Description: ' + todaysEvents[i].Description + 
-			'<br /><input type="button" class="close" value="Close" />' +
+			'<div class="back"><strong>Title:</strong> ' + todaysEvents[i].Title + 
+			'<br /><strong>Time:</strong> ' +  curDate.hour() + ":" + curDate.minute() +
+			'<br /><strong>Host:</strong> ' + todaysEvents[i].Host + 
+			'<br /><strong>Location:</strong> ' + todaysEvents[i].Location + 
+			'<br /><strong>Description:/</strong> ' + todaysEvents[i].Description + 
+			// '<br /><input type="button" class="closeButton" value="Close" />' +
 			'</div></div>';
 	}
 	return html;
