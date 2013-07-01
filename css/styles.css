@@ -12,7 +12,7 @@ div{padding: 0; margin: 0;}
 select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;} */
 /* .clearfix{clear:both;} */
 .hero-unit{background-color: #2D9B27;}
-.hero-unit h1{width: 400px; margin: 10px auto 0 auto;}
+.hero-unit h1{width: 410px; margin: 10px auto 0 auto; text-align: center;}
 .hero-unit form{width: 410px; margin: 0 auto 10px auto;}
 /*.ie .Header{width: 1167.2px;}
 .ie.ie7 .Header{width: 1167px;}*/
@@ -38,7 +38,7 @@ select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;} */
 .CalendarFooterCol{display: table-cell; width: 168px; border-bottom: 6px solid #078600;}
 .CalendarFooterCol.First{border-bottom-left-radius: 6px;}
 .CalendarFooterCol.Last{border-bottom-right-radius: 6px;}
-.Today{background-color: #eeeeee;}
+.Today{background-color: #dddddd;}
 .back{display: none;}
 .Card{width:300px !important; background-color: #BE2F33; border-radius: 4px; border:1px solid #A40004;}
 /* .ie7 input.closeButton, .ie8 input.closeButton, .ie9 input.closeButton{display: none;} */
@@ -50,3 +50,4 @@ select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;} */
 .ui-dialog-buttonpane{background: #63AFD0; border-color: #024A68}
 .ui-dialog-titlebar{background: #0772A1 url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; border: 1px solid #024A68; color: #ffffff;}
 .ui-dialog-content{color: #ffffff;}
+.errorMessage{display: none;}

@@ -18,7 +18,7 @@
     <body>
 		<div class="container">
 			<div class="hero-unit">
-				<h1>Calander 2013</h1>
+				<h1><span id="titleMonth"></span> <span id="titleYear"></span></h1>
 				<form class="form-inline">
 					<select name="month">
 						<option value="0">January</option>
@@ -34,8 +34,11 @@
 						<option value="10">November</option>
 						<option value="11">December</option>
 					</select>
-					<input type="text" class="input-small" placeholder="Year">
+					<input type="text" id="yearInput" class="input-small" placeholder="Year">
 					<input type="button" class="UpdateCalendar btn" value="Update">
+					<div class="errorMessage" id="validationError">
+						Invalid input values. Please try again.
+					</div>
 				</form>
 			</div>
 			<div class="row">
