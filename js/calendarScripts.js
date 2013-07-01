@@ -221,7 +221,7 @@ function addEvents(todaysEvents, html){
 		var curDate = moment(todaysEvents[i].Date);
 		html = html + '<div class="CalendarBodyDay-Event">' + todaysEvents[i].Title + 
 			'<div class="back"><strong>Title:</strong> ' + todaysEvents[i].Title + 
-			'<br /><strong>Time:</strong> ' +  curDate.hour() + ":" + curDate.minute() +
+			'<br /><strong>Time:</strong> ' +  curDate.format('h:mm a') +
 			'<br /><strong>Host:</strong> ' + todaysEvents[i].Host + 
 			'<br /><strong>Location:</strong> ' + todaysEvents[i].Location + 
 			'<br /><strong>Description:</strong> ' + todaysEvents[i].Description + 
