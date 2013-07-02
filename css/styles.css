@@ -11,6 +11,7 @@ p{padding: 0; margin: 0;}
 div{padding: 0; margin: 0;}
 select{height: 40px; width: 250px; font-size: 25px; border-radius: 3px;} */
 /* .clearfix{clear:both;} */
+textarea{resize: none;}
 .hero-unit{background-color: #2D9B27;}
 .hero-unit h1{margin: 10px auto 0 auto; text-align: center;}
 .hero-unit form{margin: 0 auto 10px auto; text-align: center;}

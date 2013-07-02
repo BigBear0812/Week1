@@ -58,8 +58,8 @@ $(document).ready(function(){
 	
 	// when month on the add events form is updated
 	$('#AddEvent-month').change(function(){
-		var yearAdd = $(this).val();
-		var monthAdd = $('#AddEvent-year').val();
+		var monthAdd = parseInt($('#AddEvent-month').val());
+		var yearAdd = parseInt($('#AddEvent-year').val());
 		updateDaysInMonthDropDown(yearAdd, monthAdd, '#AddEvent-day');
 	});
 });
@@ -217,7 +217,7 @@ function makeCalendar(events, calendarBody, monthSelector, today, originalHTML, 
 }
 
 function updateDaysInMonthDropDown(year, month, selector){
-	var days = moment(year + "-" + month, "YYYY-MM").daysInMonth();
+	var days = daysInMonth((month+1), year);
 	var html = '';
 	for(var v = 0; v < days; v++){
 		html = html + '<option value="' + (v+1) + '">' + (v+1) + '</option>';
