@@ -20,7 +20,7 @@
 			<div class="hero-unit">
 				<h1><span id="titleMonth"></span> <span id="titleYear"></span></h1>
 				<form class="form-inline">
-					<select name="month">
+					<select id="month" class="input-medium">
 						<option value="0">January</option>
 						<option value="1">February</option>
 						<option value="2">March</option>
@@ -35,8 +35,8 @@
 						<option value="11">December</option>
 					</select>
 					<input type="text" id="yearInput" class="input-small" placeholder="Year">
-					<input type="button" class="UpdateCalendar btn" value="Update">
-					<div class="errorMessage" id="validationError">
+					<input type="button" id="AddEvent-button" class="btn" value="Add Event">
+					<div id="validationError" class="dialogMessage">
 						Invalid input values. Please try again.
 					</div>
 				</form>
@@ -64,6 +64,65 @@
 					</div>
 				</div>
 			</div>
+			<form class="form-horizontal dialogMessage" id="AddEvent-form">
+				<div class="control-group">
+					<label class="control-label">Title</label>
+					<div class="controls">
+						<input type="text" id="AddEvent-title" placeholder="Title">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Date</label>
+					<div class="controls">
+						<select id="AddEvent-month" class="input-medium">
+							<option value="0">January</option>
+							<option value="1">February</option>
+							<option value="2">March</option>
+							<option value="3">April</option>
+							<option value="4">May</option>
+							<option value="5">June</option>
+							<option value="6">July</option>
+							<option value="7">August</option>
+							<option value="8">September</option>
+							<option value="9">October</option>
+							<option value="10">November</option>
+							<option value="11">December</option>
+						</select>
+						<select id="AddEvent-day" class="input-mini">
+						</select>
+						<input type="text" id="AddEvent-year" class="input-mini">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Time</label>
+					<div class="controls">
+						<input type="text" id="AddEvent-hour" class="input-mini">:
+						<input type="text" id="AddEvent-minutes" class="input-mini">
+						<select id="AddEvent-ampm" class="input-mini">
+							<option value="AM">AM</option>
+							<option value="PM">PM</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Host</label>
+					<div class="controls">
+						<input type="text" id="AddEvent-host" placeholder="Host">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Location</label>
+					<div class="controls">
+						<input type="text" id="AddEvent-location" placeholder="Location">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">Description</label>
+					<div class="controls">
+						<textarea id="AddEvent-description" placeholder="Description"></textarea>
+					</div>
+				</div>
+			</form>
 		</div>
     </body>
 </html>
