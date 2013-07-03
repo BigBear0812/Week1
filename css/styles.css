@@ -49,7 +49,7 @@ textarea{resize: none;}
 .ui-dialog-titlebar-close{display:none;}
 .ui-dialog{background: #63AFD0;}
 .ui-dialog-buttonpane{background: #63AFD0; border-color: #024A68}
-.ui-dialog-titlebar{background: #0772A1 url(images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; border: 1px solid #024A68; color: #ffffff;}
+.ui-dialog-titlebar{background: #0772A1 ; border: 1px solid #024A68; color: #ffffff;}
 .ui-dialog-content{color: #ffffff;}
 .dialogMessage{display: none;}
 .hidden{display: none;}
