@@ -1,3 +1,5 @@
+Week1
+
 2.0 - HTML+CSS
 This week you have to create a calendar for the current month of June! I'm looking for the following things:
  
@@ -14,3 +16,7 @@ var events = [ { "Date": "Jun 17", "Host": "Jael Watts", "Location": "P.O. Box 3
 
 notes:
 http://colorschemedesigner.com/#2O422w0w0w0w0
+
+Week2:
+Add ability to change the year as well as the month.
+Add ability to add and remove events.

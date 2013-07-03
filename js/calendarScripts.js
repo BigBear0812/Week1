@@ -21,7 +21,7 @@ $(document).ready(function(){
 	var originalHTML = $(calendarBody).parent().html();
 	UpdateAll(events, calendarBody, monthSelector, now, originalHTML, yearSelector);
 	
-	// setup add evetn validation dialog
+	// setup add event validation dialog
 	var validationDialog = $('#AddEvent-validation').dialog({
 		width: 600,
 		title: "Validation Failed",
@@ -30,7 +30,7 @@ $(document).ready(function(){
 		buttons:{
 			Close: function(){
 				$(this).dialog('close');
-			},
+			}
 		}
 	});
 	
@@ -297,7 +297,8 @@ function addEventHandlers(events){
 						var shownEvents = $(day).children('.CalendarBodyDay-Events').children('.CalendarBodyDay-Event');
 						var result;
 						$(shownEvents).each(function(){
-							if($(this).text() === event.Title){
+							var back = $(this).find('.back');
+							if(back.length < 1){
 								result = this;
 							}
 						});
