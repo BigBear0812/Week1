@@ -21,6 +21,19 @@ $(document).ready(function(){
 	var originalHTML = $(calendarBody).parent().html();
 	UpdateAll(events, calendarBody, monthSelector, now, originalHTML, yearSelector);
 	
+	// setup add evetn validation dialog
+	var validationDialog = $('#AddEvent-validation').dialog({
+		width: 600,
+		title: "Validation Failed",
+		autoOpen: false,
+		model:true,
+		buttons:{
+			Close: function(){
+				$(this).dialog('close');
+			},
+		}
+	});
+	
 	// setup add event dialog
 	 var addEventDialog = $('form#AddEvent-form').dialog({
 		width: 600,
@@ -28,12 +41,30 @@ $(document).ready(function(){
 		autoOpen: false,
 		model:true,
 		buttons:{
+			Cancel: function(){
+				$(this).dialog('close');
+			},
 			Add: function(){
-				$(this).dialog("close");
+				var result = ValidateNewEventInputs(this);
+				if (result == true){
+					var event = constructEventObject();
+					var html = '';
+					html = newEvent(event);
+					var id = events.length;
+					events[id] = event;
+					updateCalendar(html, moment(event.Date, 'YYYY-MM-DDTHH:mm:ss Z'))
+					addEventHandlers(events)
+					$(this).dialog("close");
+				}
+				else{
+					$(validationDialog).dialog('open');
+				}
 			}
 		}
 	});
 	$('.ui-dialog-buttonset').children().addClass('btn');
+	
+	
 	
 	// attach event listener for when the user changes the month and presses enter
 	$(yearSelector).keypress(function(e){
@@ -53,6 +84,13 @@ $(document).ready(function(){
 		$('#AddEvent-month').val(now.month());
 		$('#AddEvent-year').val(now.year());
 		updateDaysInMonthDropDown(now.year(), now.month(), '#AddEvent-day')
+		$('#AddEvent-title').val('');
+		$('#AddEvent-hour').val('');
+		$('#AddEvent-minutes').val('');
+		$('#AddEvent-ampm').val('AM');
+		$('#AddEvent-host').val('');
+		$('#AddEvent-location').val('');
+		$('#AddEvent-description').val('');
 		addEventDialog.dialog('open');
 	});
 	
@@ -64,9 +102,10 @@ $(document).ready(function(){
 	});
 });
 
+// update the calendar and title.
 function UpdateAll(events, calendarBody, monthSelector, now, originalHTML, yearSelector){
 	var year = $(yearSelector).val();
-	var result = validateInputs(year);
+	var result = validateYears(year);
 	if(result == true){
 		updateTitle(yearSelector, monthSelector);
 		makeCalendar(events, calendarBody, monthSelector, now, originalHTML, yearSelector);
@@ -86,6 +125,7 @@ function UpdateAll(events, calendarBody, monthSelector, now, originalHTML, yearS
 	}
 }
 
+// create the calendar html
 function makeCalendar(events, calendarBody, monthSelector, today, originalHTML, yearSelector){
 	var yearTxt = $(yearSelector).val()
 	var year = parseInt(yearTxt);
@@ -201,6 +241,28 @@ function makeCalendar(events, calendarBody, monthSelector, today, originalHTML, 
 	if($('html').hasClass('ie7')){ $('.Calendar').css('behavior', "url('http://localhost:8080/htc/display-table.min.htc')");}
 	
 	// attach event handler to show details
+	addEventHandlers(events)
+}
+
+// update the calendar if the event should show up on the screen
+function updateCalendar(html, date){
+	var month = parseInt($('#month').val());
+	var year = parseInt($('#yearInput').val());
+	
+	if(date.month() == month && date.year() == year){
+		var days = $('.CalendarBodyDay');
+		var day;
+		$(days).each(function(){
+			if (parseInt($(this).children('.CalendarBodyDay-Date').text()) == date.date()){
+				day = this;
+			}
+		}); 
+		$(day).children('.CalendarBodyDay-Events').append(html);
+	}
+}
+
+// attach event handler to show details
+function addEventHandlers(events){
 	$('.CalendarBodyDay-Event').click(function(){
 		$(this).find('.back').dialog({
 			width: 600,
@@ -209,6 +271,39 @@ function makeCalendar(events, calendarBody, monthSelector, today, originalHTML, 
 			buttons: {
 				Close: function() {
 					$(this).dialog("destroy");
+				},
+				Delete: function(){
+					var info = this;
+					var dateString = $(this).find('.hidden').text();
+					var id = -1;
+					$(events).each(function(index){
+						if (this.Date === dateString){
+							if(this.Title === $(info).find('span.title').text() && this.Description === $(info).find('span.des').text() && this.Host === $(info).find('span.host').text() && this.Location === $(info).find('span.loc').text()){
+								id = index;
+							}
+						}
+					});
+					if(id != -1){
+						var event = events[id];
+						events.splice(id, 1);
+						var days = $('.CalendarBodyDay');
+						var day;
+						var date = moment(event.Date);
+						$(days).each(function(){
+							if (parseInt($(this).children('.CalendarBodyDay-Date').text()) === date.date()){
+								day = this;
+							}
+						}); 
+						var shownEvents = $(day).children('.CalendarBodyDay-Events').children('.CalendarBodyDay-Event');
+						var result;
+						$(shownEvents).each(function(){
+							if($(this).text() === event.Title){
+								result = this;
+							}
+						});
+						$(result).remove();
+					}
+					$(this).dialog("destroy");
 				}
 			}
 		});
@@ -216,6 +311,33 @@ function makeCalendar(events, calendarBody, monthSelector, today, originalHTML, 
 	});
 }
 
+// validate the inputs for the new event being created
+function ValidateNewEventInputs(dialog){
+	var resultMin = validateMin($('#AddEvent-minutes').val());
+	var resultHour = validateHours($('#AddEvent-hour').val());
+	var resultYear = validateYears($('#AddEvent-year').val());
+	if (resultMin == true && resultHour == true && resultYear == true){
+		
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+// contruct a new event object when a new event is added
+function constructEventObject(){
+	var event = {};
+	var day = moment($('#AddEvent-year').val() + '-' + (parseInt($('#AddEvent-month').val())+1) + '-' + $('#AddEvent-day').val() + 'T' + $('#AddEvent-hour').val() + ':' + $('#AddEvent-minutes').val() + ':00', 'YYYY-MM-DDTHH:mm:ss')
+	event.Title = $('#AddEvent-title').val();
+	event.Host = $('#AddEvent-host').val();
+	event.Description = $('#AddEvent-description').val();
+	event.Location = $('#AddEvent-location').val();
+	event.Date = day.format('YYYY-MM-DDTHH:mm:ss Z');
+	return event;
+}
+
+// update the days in month drop down for the add event dialog
 function updateDaysInMonthDropDown(year, month, selector){
 	var days = daysInMonth((month+1), year);
 	var html = '';
@@ -226,11 +348,35 @@ function updateDaysInMonthDropDown(year, month, selector){
 	$(selector).append(html);
 }
 
-function validateInputs(year){
+// validate minutes value
+function validateMin(min){
+	var minutes = parseInt(min);
+	if (minutes >= 0 && minutes <=60){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+// validate hours value
+function validateHours(hour){
+	var hours = parseInt(hour);
+	if (hours >= 1 && hours <= 12){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+// validate years value
+function validateYears(year){
 	var yearTest = new RegExp('^[0-9]{4}$');
 	return yearTest.test(year);
 }
 
+// update title text
 function updateTitle(yearSelector, monthSelector){
 	var yearTxt = $(yearSelector).val();
 	var monthVal = $(monthSelector).val();
@@ -241,18 +387,30 @@ function updateTitle(yearSelector, monthSelector){
 	$('span#titleYear').text(yearTxt);
 }
 
+// create new event html
+function newEvent(event){
+	var curDate = moment(event.Date);
+	return '<div class="CalendarBodyDay-Event">' + event.Title + 
+		'<div class="back"><strong>Title:</strong> <span class="title">' + event.Title + 
+		'</span><br /><strong>Time:</strong> <span class="time">' +  curDate.format('h:mm a') +
+		'</span><br /><strong>Host:</strong> <span class="host">' + event.Host + 
+		'</span><br /><strong>Location:</strong> <span class="loc">' + event.Location + 
+		'</span><br /><strong>Description:</strong> <span class="des">' + event.Description + 
+		'</span><div class="hidden">' + event.Date + '</div></div></div>';
+}
+
+// create events html
 function addEvents(todaysEvents, html){
 	// for each event add in a new event for it
 	for(var i = 0; i < todaysEvents.length; i++){
 		var curDate = moment(todaysEvents[i].Date);
 		html = html + '<div class="CalendarBodyDay-Event">' + todaysEvents[i].Title + 
-			'<div class="back"><strong>Title:</strong> ' + todaysEvents[i].Title + 
-			'<br /><strong>Time:</strong> ' +  curDate.format('h:mm a') +
-			'<br /><strong>Host:</strong> ' + todaysEvents[i].Host + 
-			'<br /><strong>Location:</strong> ' + todaysEvents[i].Location + 
-			'<br /><strong>Description:</strong> ' + todaysEvents[i].Description + 
-			// '<br /><input type="button" class="closeButton" value="Close" />' +
-			'</div></div>';
+		'<div class="back"><strong>Title:</strong> <span class="title">' + todaysEvents[i].Title + 
+		'</span><br /><strong>Time:</strong> <span class="time">' +  curDate.format('h:mm a') +
+		'</span><br /><strong>Host:</strong> <span class="host">' + todaysEvents[i].Host + 
+		'</span><br /><strong>Location:</strong> <span class="loc">' + todaysEvents[i].Location + 
+		'</span><br /><strong>Description:</strong> <span class="des">' + todaysEvents[i].Description + 
+		'</span><div class="hidden">' + todaysEvents[i].Date + '</div></div></div>';
 	}
 	return html;
 }
